@@ -33,20 +33,21 @@ export const quizRouter = createTRPCRouter({
 
       const passed = score === questions.length;
 
-      await db.userProgress.upsert({
+      await ctx.db.userProgress.upsert({
         where: {
           userId_sectionId: {
-            userId: userId as string,
+            userId: userId!,
             sectionId: section.id,
           },
         },
         update: { passed },
         create: {
-          userId: userId as string,
+          userId: userId!,
           sectionId: section.id,
           passed,
         },
       });
+      
 
       return { passed, score, total: questions.length };
     })
