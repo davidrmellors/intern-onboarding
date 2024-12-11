@@ -2,20 +2,13 @@
 
 import { useState } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
+import type { DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { SortableItem } from "../_components/SortableItem"; // Custom component for sortable items
 import { Clock, DollarSign, ClipboardList, Users } from "lucide-react";
 import Link from "next/link";
 
 export default function MonitoringControlPage() {
-    interface DragEndEvent {
-        active: {
-            id: string;
-        };
-        over: {
-            id: string | null;
-        } | null;
-    }
 
   const [progress, setProgress] = useState(60); // For time tracking
   const [budget, setBudget] = useState(50); // For budget reviews
@@ -43,7 +36,7 @@ export default function MonitoringControlPage() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (active.id !== over.id) {
+    if (active.id !== over?.id) {
       setTasks((prevTasks) => {
         const oldIndex = prevTasks.findIndex((task) => task.id === active.id);
         const newIndex = prevTasks.findIndex((task) => task.id === over?.id);

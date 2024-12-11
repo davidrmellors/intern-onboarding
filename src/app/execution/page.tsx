@@ -7,6 +7,8 @@ import {
   useDroppable,
   useDraggable,
 } from "@dnd-kit/core";
+
+import type { DragEndEvent } from "@dnd-kit/core";
 import { CheckCircle, ClipboardList, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import "@fontsource/inter/400.css";
@@ -14,15 +16,6 @@ import "@fontsource/inter/700.css";
 
 export default function ExecutionPage() {
 
-  interface DragEndEvent {
-    active: {
-      id: string;
-    };
-    over: {
-      id: string | null;
-    } | null;
-  }
-  
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -49,28 +42,34 @@ export default function ExecutionPage() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) return;
-
+  
     const sourceColumn = Object.keys(tasks).find((key) =>
       tasks[key as keyof typeof tasks].some((task) => task.id === active.id)
     );
     const destinationColumn = over.id;
-
-    if (sourceColumn !== destinationColumn) {
+  
+    if (sourceColumn && destinationColumn && sourceColumn !== destinationColumn) {
       const sourceTasks = tasks[sourceColumn as keyof typeof tasks].filter(
         (task) => task.id !== active.id
       );
       const draggedTask = tasks[sourceColumn as keyof typeof tasks].find(
         (task) => task.id === active.id
       );
+  
+      if (!draggedTask) {
+        console.error("Dragged task not found!");
+        return;
+      }
+  
       const destinationTasks = [
         ...tasks[destinationColumn as keyof typeof tasks],
-        draggedTask!,
+        draggedTask,
       ];
-
+  
       setTasks({
         ...tasks,
-        [sourceColumn!]: sourceTasks,
-        [destinationColumn!]: destinationTasks,
+        [sourceColumn]: sourceTasks,
+        [destinationColumn]: destinationTasks,
       });
     }
   };
