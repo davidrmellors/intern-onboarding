@@ -5,7 +5,7 @@ export const sectionRouter = createTRPCRouter({
   getSectionBySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .query(async ({ ctx, input }) => {
-      return ctx.prisma.section.findUnique({
+      return ctx.db.section.findUnique({
         where: { slug: input.slug },
         include: { questions: true },
       });

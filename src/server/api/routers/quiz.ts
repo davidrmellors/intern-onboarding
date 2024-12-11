@@ -11,9 +11,9 @@ export const quizRouter = createTRPCRouter({
       }))
     }))
     .mutation(async ({ ctx, input }) => {
-      const { prisma, session } = ctx;
+      const { db } = ctx;
 
-      const section = await prisma.section.findUnique({
+      const section = await db.section.findUnique({
         where: { slug: input.sectionSlug },
         include: { questions: true },
       });
@@ -33,7 +33,7 @@ export const quizRouter = createTRPCRouter({
 
       const passed = score === questions.length;
 
-      await prisma.userProgress.upsert({
+      await db.userProgress.upsert({
         where: {
           userId_sectionId: {
             userId: session.user.id,
