@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, stagger } from "framer-motion";
+import { motion } from "framer-motion";
 import { BookOpen, Trophy, Rocket } from "lucide-react";
 
 export default function HomePage() {
@@ -59,7 +59,7 @@ export default function HomePage() {
         >
           <p className="text-lg text-gray-700 leading-relaxed">
             Get ready to master the MO_FLO project management process in a fun and
-            interactive way. From Initiation to Closure, you'll learn the ins and
+            interactive way. From Initiation to Closure, you&apos;ll learn the ins and
             outs of every phase.
           </p>
         </motion.div>
