@@ -10,6 +10,7 @@ export default function IntroductionPage() {
     router.push("/initiation");
   };
 
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-8">
       <div className="relative mx-auto max-w-4xl">
@@ -20,7 +21,7 @@ export default function IntroductionPage() {
         >
           <h2 className="mb-4 text-3xl font-bold text-blue-600">MO_FLO Overview</h2>
           <p className="mb-4 text-lg text-gray-700">
-            MO_FLO is MOHARA's core project management process that governs how projects are delivered for customers
+            MO_FLO is MOHARA&apos;s core project management process that governs how projects are delivered for customers
             and encompasses end-to-end project delivery with six sections:
           </p>
           <ul className="mb-4 list-disc pl-5 text-lg text-gray-700">
@@ -32,8 +33,8 @@ export default function IntroductionPage() {
             <li>Business Hygiene</li>
           </ul>
           <p className="mb-8 text-lg text-gray-700">
-            It's important to note that the phases are not linear and most projects are iterative with clear cycles of
-            'Plan, Execute, Review' within the Execution phase.
+            It&apos;s important to note that the phases are not linear and most projects are iterative with clear cycles of
+            &apos;Plan, Execute, Review&apos; within the Execution phase.
           </p>
 
           <motion.button

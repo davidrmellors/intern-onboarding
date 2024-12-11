@@ -13,6 +13,16 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/700.css";
 
 export default function ExecutionPage() {
+
+  interface DragEndEvent {
+    active: {
+      id: string;
+    };
+    over: {
+      id: string | null;
+    } | null;
+  }
+  
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -36,7 +46,7 @@ export default function ExecutionPage() {
   const [timer, setTimer] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) return;
 
@@ -220,7 +230,7 @@ function DroppableColumn({ id, title, children }: { id: string; title: string; c
 function DraggableTask({ id, title }: { id: string; title: string }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
   const style = {
-    transform: `translate3d(${transform?.x || 0}px, ${transform?.y || 0}px, 0)`,
+    transform: `translate3d(${transform?.x ?? 0}px, ${transform?.y ?? 0}px, 0)`,
   };
 
   return (

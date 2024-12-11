@@ -28,7 +28,7 @@ export default function InitiationPage() {
           </h2>
           <p className="text-lg text-gray-700 leading-relaxed mb-6">
             Project initiation is the first phase of a project’s life cycle, and
-            it's crucial for anchoring the project's expectations and defining
+            it&apos;s crucial for anchoring the project&apos;s expectations and defining
             its purpose.
           </p>
 
@@ -133,7 +133,7 @@ export default function InitiationPage() {
               <div>
                 <span className="font-semibold text-gray-900">Product Vision:</span>
                 <p className="text-gray-700 text-sm">
-                  Map out the client's vision and align the team.
+                  Map out the client&apos;s vision and align the team.
                 </p>
               </div>
             </li>

@@ -8,6 +8,15 @@ import { Clock, DollarSign, ClipboardList, Users } from "lucide-react";
 import Link from "next/link";
 
 export default function MonitoringControlPage() {
+    interface DragEndEvent {
+        active: {
+            id: string;
+        };
+        over: {
+            id: string | null;
+        } | null;
+    }
+
   const [progress, setProgress] = useState(60); // For time tracking
   const [budget, setBudget] = useState(50); // For budget reviews
   const [resources, setResources] = useState([
@@ -31,13 +40,13 @@ export default function MonitoringControlPage() {
     );
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (active.id !== over.id) {
       setTasks((prevTasks) => {
         const oldIndex = prevTasks.findIndex((task) => task.id === active.id);
-        const newIndex = prevTasks.findIndex((task) => task.id === over.id);
+        const newIndex = prevTasks.findIndex((task) => task.id === over?.id);
         return arrayMove(prevTasks, oldIndex, newIndex);
       });
     }
