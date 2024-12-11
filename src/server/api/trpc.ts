@@ -26,9 +26,30 @@ import { db } from "~/server/db";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
+  // Clerk expects a Request object or something that implements the standard interface.
+  // If you're working in Next.js app router environment, `headers` might be available as `opts.headers`.
+  // Transform them into a format Clerk can parse.
+  
+  // Note: `getAuth` from Clerk can accept a `Request` object. If you have one, pass it directly.
+  // Otherwise, you can construct a minimal request-like object:
+  const req = {
+    headers: opts.headers,
+  } as unknown as Request;
+
+  const { userId, sessionId } = getAuth(req);
+
+  // If there's a userId, the user is authenticated. You can fetch the user object if needed:
+  let user = null;
+  if (userId) {
+    user = await clerkClient.users.getUser(userId);
+  }
+
   return {
     db,
-    ...opts,
+    headers: opts.headers,
+    userId,
+    user,
+    sessionId
   };
 };
 

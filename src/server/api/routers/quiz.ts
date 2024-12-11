@@ -11,7 +11,7 @@ export const quizRouter = createTRPCRouter({
       }))
     }))
     .mutation(async ({ ctx, input }) => {
-      const { db } = ctx;
+      const { db, userId } = ctx;
 
       const section = await db.section.findUnique({
         where: { slug: input.sectionSlug },
@@ -36,13 +36,13 @@ export const quizRouter = createTRPCRouter({
       await db.userProgress.upsert({
         where: {
           userId_sectionId: {
-            userId: session.user.id,
+            userId: userId as string,
             sectionId: section.id,
           },
         },
         update: { passed },
         create: {
-          userId: session.user.id,
+          userId: userId as string,
           sectionId: section.id,
           passed,
         },
