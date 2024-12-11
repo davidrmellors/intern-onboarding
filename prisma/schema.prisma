@@ -9,47 +9,48 @@ generator client {
 }
 
 model User {
-  id             String         @id @default(cuid())
-  email          String         @unique
-  name           String?
+  id        String         @id @default(cuid())
+  email     String         @unique
+  name      String?
   // Additional fields as needed
-  progress       UserProgress[]
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  progress  UserProgress[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
 }
 
 model Section {
-  id             String       @id @default(cuid())
-  title          String
-  slug           String       @unique
-  content        String       // HTML/Markdown content for the section
-  order          Int
-  questions      Question[]
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  id           String         @id @default(cuid())
+  title        String
+  slug         String         @unique
+  content      String // HTML/Markdown content for the section
+  order        Int
+  questions    Question[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  UserProgress UserProgress[]
 }
 
 model Question {
-  id          String   @id @default(cuid())
-  sectionId   String
-  section     Section  @relation(fields: [sectionId], references: [id])
-  prompt      String
+  id            String   @id @default(cuid())
+  sectionId     String
+  section       Section  @relation(fields: [sectionId], references: [id])
+  prompt        String
   correctAnswer String
   // Could store multiple choices if needed
   // For simplicity, assume multiple choice as "a|b|c", etc.
-  choices     String[] // An array of possible answers
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  choices       String[] // An array of possible answers
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model UserProgress {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
   sectionId String
-  section   Section  @relation(fields: [sectionId], references: [id])
-  passed    Boolean  @default(false)
+  section   Section @relation(fields: [sectionId], references: [id])
+  passed    Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
