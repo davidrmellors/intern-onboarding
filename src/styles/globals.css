@@ -1,4 +1,4 @@
-@import "@fontsource/merriweather"; /* Import your font first */
+@import "@fontsource/roboto";
 
 @tailwind base;
 @tailwind components;

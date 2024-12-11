@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, Lightbulb, Clipboard, Activity, BookOpen, Shield, Layout, Layers } from "lucide-react"; // For icons
+import { useRouter } from "next/navigation";
 
 export default function PlanningPage() {
   const [openSteps, setOpenSteps] = useState<number[]>([]);
@@ -14,6 +15,16 @@ export default function PlanningPage() {
       setOpenSteps([...openSteps, index]);
     }
   };
+
+  const router = useRouter();
+
+  const navigateToNextSection = () => {
+    router.push("/execution");
+  };
+
+  const navigateToPreviousSection = () => {
+    router.push("/initiation");
+  }
 
   const steps = [
     { title: "Priorities", content: "Establish project priorities and understand risks.", icon: <Lightbulb className="text-yellow-500 w-6 h-6" /> },
@@ -76,7 +87,16 @@ export default function PlanningPage() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            className="mt-8 w-full rounded-md bg-green-600 py-4 text-lg font-medium text-white shadow-lg hover:bg-green-700 transition-all"
+            onClick={navigateToPreviousSection}
+          >
+            Go to Previous Section
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             className="mt-8 w-full rounded-md bg-purple-600 py-4 text-lg font-medium text-white shadow-lg hover:bg-purple-700 transition-all"
+            onClick={navigateToNextSection}
           >
             Go to Next Section
           </motion.button>
@@ -85,4 +105,3 @@ export default function PlanningPage() {
     </div>
   );
 }
-
